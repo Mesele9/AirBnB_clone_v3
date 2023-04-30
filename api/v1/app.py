@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, make_response
 from models import storage
 from api.v1.views import app_views
 from os import getenv
@@ -15,6 +15,12 @@ app.register_blueprint(app_views)
 def close_db(obj):
     """a method that calll storage.close()"""
     storage.close()
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    """returns 404 error: error not found"""
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == '__main__':
