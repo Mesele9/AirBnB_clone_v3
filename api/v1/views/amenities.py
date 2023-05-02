@@ -25,7 +25,7 @@ def get_amenity(amenity_id):
 
 
 @app_views.route('/amenities/<string:amenity_id>', methods=['DELETE'],
-                         strict_slashes=False)
+                 strict_slashes=False)
 def del_amenity(amenity_id):
     """ delete amenity by id"""
     amenity = storage.get(Amenity, amenity_id)
@@ -55,7 +55,7 @@ def create_obj_amenity():
 def post_amenity(amenity_id):
     """create new amenity"""
     if not request.get_json():
-        return make_response(jsonify({"error": "Not a JSON"}), 400)    
+        return make_response(jsonify({"error": "Not a JSON"}), 400)
     obj = storage.get(Amenity, amenity_id)
     if obj is None:
         abort(404)

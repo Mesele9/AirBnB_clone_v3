@@ -18,7 +18,8 @@ def get_cities(state_id):
     return jsonify(all_cities)
 
 
-@app_views.route('/cities/<string:city_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/cities/<string:city_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_city(city_id):
     """retirve city by id"""
     city = storage.get(City, city_id)
@@ -40,7 +41,7 @@ def del_city(city_id):
 
 
 @app_views.route('/states/<string:state_id>/cities', methods=['POST'],
-                         strict_slashes=False)
+                 strict_slashes=False)
 def create_obj_city(state_id):
     """ create new instance """
     state = storage.get(State, state_id)

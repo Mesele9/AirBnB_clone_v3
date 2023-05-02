@@ -7,7 +7,6 @@ from models import storage
 from models.state import State
 
 
-
 @app_views.route('/states', methods=['GET'], strict_slashes=False)
 def get_all():
     """retrieve all"""
@@ -15,7 +14,8 @@ def get_all():
     return jsonify(list_all)
 
 
-@app_views.route('/states/<string:state_id>', methods=['GET'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['GET'],
+                 strict_slashes=False)
 def get_method_state(state_id):
     """retrieve state by id"""
     state = storage.get(State, state_id)
@@ -24,7 +24,8 @@ def get_method_state(state_id):
     return jsonify(state.to_dict())
 
 
-@app_views.route('/states/<string:state_id>', methods=['DELETE'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['DELETE'],
+                 strict_slashes=False)
 def del_method(state_id):
     """Delete state by id"""
     state = storage.get(State, state_id)
@@ -33,6 +34,7 @@ def del_method(state_id):
     state.delete()
     storage.save()
     return jsonify({})
+
 
 @app_views.route('/states/', methods=['POST'], strict_slashes=False)
 def create_obj():
@@ -47,7 +49,8 @@ def create_obj():
     return jsonify(state_obj.to_dict()), 201
 
 
-@app_views.route('/states/<string:state_id>', methods=['PUT'], strict_slashes=False)
+@app_views.route('/states/<string:state_id>', methods=['PUT'],
+                 strict_slashes=False)
 def post_method(state_id):
     """Post"""
     if not request.get_json():

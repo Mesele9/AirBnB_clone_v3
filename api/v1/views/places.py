@@ -9,6 +9,7 @@ from models.user import User
 from models.amenity import Amenity
 from models.state import State
 
+
 @app_views.route('/cities/<string:city_id>/places', methods=['GET'],
                  strict_slashes=False)
 def get_all_places(city_id):
@@ -92,8 +93,7 @@ def search_places_by_id():
         states = data.get('states', None)
         cities = data.get('cities', None)
         amenities = data.get('amenities', None)
-
-    if not data or not len(data) or ( 
+    if not data or not len(data) or (
             not states and not cities and not amenities):
         places = storage.all(Place).values()
         list_places = []
@@ -111,7 +111,6 @@ def search_places_by_id():
                         for place in city.places:
                             list_places.append(place)
 
-                            
     if cities:
         city_obj = [storage.get(City, c_id) for c_id in cities]
         for city in city_obj:
@@ -119,13 +118,13 @@ def search_places_by_id():
                 for place in city.places:
                     if place not in list_places:
                         list_places.append(place)
-                        
+
     if amenities:
         if not list_places:
             list_places = storage.all(Place).values()
         amenities_obj = [storage.get(Amenity, a_id) for a_id in amenities]
         list_places = [place for place in list_places
-                if all([am in place.amenities for am in amenities_obj])]
+                       if all([am in place.amenities for am in amenities_obj])]
 
     places = []
     for p in list_places:
